@@ -40,8 +40,8 @@ contains
        surface_fluxes,                       &
        marbl_tracer_indices,                 &
        marbl_surface_flux_share,             &
-       marbl_surface_flux_diags)
-
+       marbl_surface_flux_diags,             &
+     flux14_sa_out)                        ! >>> mzheng: 新增输出参数
     !  Compute surface fluxes for ciso tracers
 
     use marbl_constants_mod, only : R13C_std
@@ -58,7 +58,9 @@ contains
     real(r8),                                       intent(inout) :: surface_fluxes(:, :)
     type(marbl_tracer_index_type),                  intent(in)    :: marbl_tracer_indices
     type(marbl_diagnostics_type),                   intent(inout) :: marbl_surface_flux_diags
-
+     ! >>> mzheng: 新增 14CO2 sea-to-air 通量输出参数
+     real(r8), dimension(num_elements),              intent(out)   :: flux14_sa_out
+     ! <<< mzheng
     !-----------------------------------------------------------------------
     !  local variables
     !-----------------------------------------------------------------------
@@ -207,6 +209,10 @@ contains
 
     surface_fluxes(:,di13c_ind) = surface_fluxes(:,di13c_ind) + flux13(:)
     surface_fluxes(:,di14c_ind) = surface_fluxes(:,di14c_ind) + flux14(:)
+
+     ! >>> mzheng: 输出 14CO2 sea-to-air 通量
+     flux14_sa_out(:) = flux14_sa(:)
+     ! <<< mzheng
 
     ! update carbon isotope diagnostics
     ! FIXME #18: the following arguments need to be group into a derived type

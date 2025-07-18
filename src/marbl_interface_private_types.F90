@@ -193,6 +193,9 @@ module marbl_interface_private_types
      real (r8), allocatable, dimension(:)   :: pv_co2       ! piston velocity (cm/s)
      real (r8), allocatable, dimension(:)   :: o2sat        ! used O2 saturation (mmol/m^3)
      real (r8), allocatable, dimension(:)   :: nhx_surface_emis
+     ! >>> mzheng
+     real (r8), allocatable, dimension(:)   :: flux_14co2
+     ! <<< mzheng
    contains
      procedure, public :: construct => marbl_surface_flux_internal_constructor
      procedure, public :: destruct => marbl_surface_flux_internal_destructor

@@ -19,6 +19,9 @@ module marbl_interface_public_types
     integer(int_kind) :: flux_co2_id = 0
     integer(int_kind) :: flux_nhx_id = 0
     integer(int_kind) :: totalChl_id = 0
+    ! >>> mzheng: 新增 14CO2 表面通量输出索引
+    integer(int_kind) :: flux_14co2_id = 0
+    ! <<< mzheng
   end type marbl_surface_flux_output_indexing_type
 
   type(marbl_surface_flux_output_indexing_type), public :: sfo_ind
@@ -462,6 +465,13 @@ contains
         this%short_name = "flux_co2"
         this%units      = "nmol/cm^2/s"
         sfo_ind%flux_co2_id = id
+      ! >>> mzheng: 新增 14CO2 表面通量输出处理
+      case("flux_14co2")
+        this%long_name  = "Carbon-14 Dioxide Flux"
+        this%short_name = "flux_14co2"
+        this%units      = "atoms/cm^2/s"
+        sfo_ind%flux_14co2_id = id
+      ! <<< mzheng
       case("flux_nhx")
         this%long_name  = "NHx Surface Emissions"
         this%short_name = "flux_nhx"

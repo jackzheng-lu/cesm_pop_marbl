@@ -116,6 +116,12 @@ contains
     real (r8)          :: flux_o2_loc(num_elements)   ! local value of o2 flux
     type(co2calc_coeffs_type), dimension(num_elements) :: co2calc_coeffs
     type(co2calc_state_type),  dimension(num_elements) :: co2calc_state
+
+   ! >>> mzheng: 声明 14CO2 sea-to-air 通量变量
+   real(r8), dimension(num_elements) :: flux14_sa_local
+   ! <<< mzheng
+
+
     !-----------------------------------------------------------------------
 
     associate(                                             &
@@ -439,9 +445,21 @@ contains
          surface_fluxes              = surface_fluxes,                                &
          marbl_tracer_indices        = marbl_tracer_indices,                          &
          marbl_surface_flux_share    = surface_flux_share,                            &
-         marbl_surface_flux_diags    = surface_flux_diags)
+         marbl_surface_flux_diags    = surface_flux_diags,                            &
+         flux14_sa_out               = flux14_sa_local)                               ! >>> mzheng: 新增输出参数
 
     !-----------------------------------------------------------------------
+
+
+   ! >>> mzheng: 将 14CO2 sea-to-air 通量存储到表面通量输出
+   if (sfo_ind%flux_14co2_id.ne.0) then
+   ! 注意：这里可能需要单位转换或符号调整
+   ! flux14_sa 是 sea-to-air，正值表示海洋向大气释放
+      surface_flux_output%sfo(sfo_ind%flux_14co2_id)%forcing_field = flux14_sa_local
+   end if
+   ! <<< mzheng
+
+
 
     end associate
 
