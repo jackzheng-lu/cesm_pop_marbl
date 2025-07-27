@@ -769,11 +769,11 @@ contains
         end if
 
         ! d14c
-        ! >>> mzheng_comment, 现在改为 14co2, ppmv
+        ! >>> mzheng_comment, 现在改为ratio of 14co2/12co2
         if (id .eq. ind%d14c_id) then
           found = .true.
-          surface_flux_forcings(id)%metadata%varname       = 'd14c'
-          surface_flux_forcings(id)%metadata%field_units   = 'permil'
+          surface_flux_forcings(id)%metadata%varname       = 'Ratio of 14co2/12co2 (normalized)'
+          surface_flux_forcings(id)%metadata%field_units   = 'unitless'
         end if
 
         if (.not.found) then
