@@ -769,6 +769,7 @@ contains
         end if
 
         ! d14c
+        ! >>> mzheng_comment, 现在改为 14co2, ppmv
         if (id .eq. ind%d14c_id) then
           found = .true.
           surface_flux_forcings(id)%metadata%varname       = 'd14c'

@@ -68,7 +68,7 @@ contains
          R13C_DIC,                        & ! 13C/12C ratio in DIC
          R14C_DIC,                        & ! 14C/12C ratio in total DIC
          R13C_atm,                        & ! 13C/12C ratio in atmospheric CO2
-         R14C_atm,                        & ! 14C/12C ratio in atmospheric CO2
+         r14c_atm,                        & ! 14C/12C ratio in atmospheric CO2
          flux,                            & ! gas flux of CO2 (nmol/cm^2/s)
          flux13,                          & ! gas flux of 13CO2 (nmol/cm^2/s)
          flux14,                          & ! gas flux of 14CO2 (nmol/cm^2/s)
@@ -125,11 +125,17 @@ contains
     surface_fluxes(:,ciso_ind_beg:ciso_ind_end) = c0
 
     !-----------------------------------------------------------------------
-    !     initialize R13C_atm  and R14C_atm
+    !     initialize R13C_atm  and r14c_atm
     !-----------------------------------------------------------------------
-
+    
+    ! >>> mzheng, 原始的设置d14c是δc14, R14C_atm是归一化的c14/c12 比率
+    ! R14C_std和R13C_std都是为1
+    ! 这么做的目的是为了避免太小的值
+    ! 注意，这里统一下写法，否则出现大小写不一致的情况，c13暂时不做修改
     R13C_atm(:) = R13C_std * ( c1 + d13c(:) / c1000 )
-    R14C_atm(:) = R14C_std * ( c1 + d14c(:) / c1000 )
+    !R14C_atm(:) = R14C_std * ( c1 + d14c(:) / c1000 )
+    r14c_atm = d14c(:)
+
 
     !-----------------------------------------------------------------------
     !     compute 13C02 flux, based on CO2 flux calculated in ecosystem model
@@ -231,7 +237,7 @@ contains
          R13C_dic,       &
          R14C_dic,       &
          R13C_atm,       &
-         R14C_atm,       &
+         r14c_atm,       &
          eps_aq_g_surf,  &
          eps_dic_g_surf, &
          marbl_surface_flux_diags)

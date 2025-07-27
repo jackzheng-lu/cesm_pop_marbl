@@ -1749,6 +1749,7 @@ contains
     call print_single_derived_parm('Jint_Ctot_thres', 'CISO_Jint_13Ctot_thres', &
          CISO_Jint_13Ctot_thres, subname, marbl_status_log)
 
+    ! mzheng_comment, 碳-14的积分碳通量阈值，用于模型的数值稳定性检查
     CISO_Jint_14Ctot_thres = R14C_std * Jint_Ctot_thres
     call print_single_derived_parm('Jint_Ctot_thres', 'CISO_Jint_14Ctot_thres', &
          CISO_Jint_14Ctot_thres, subname, marbl_status_log)
