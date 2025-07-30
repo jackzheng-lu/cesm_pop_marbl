@@ -1128,8 +1128,13 @@ contains
        write(log_message,"(A,E11.3e3,A,E11.3e3)") &
             'abs(CISO_Jint_14Ctot)=', abs(diags(ind%CISO_Jint_14Ctot)%field_2d(1)), &
             ' exceeds CISO_Jint_14Ctot_thres=', CISO_Jint_14Ctot_thres
-       call marbl_status_log%log_error(log_message, subname, ElemInd=1)
-       return
+
+        ! >>> mzheng: 这里不再停止运行，而是记录错误信息
+        ! call marbl_status_log%log_error(log_message, subname, ElemInd=1)
+        ! return
+
+       call marbl_status_log%log_warning(log_message, subname, ElemInd=1)
+       ! <<< mzheng: 继续执行，不再停止运行
     end if
 
     ! Other vertical integrals
