@@ -469,7 +469,7 @@ contains
       case("flux_14co2")
         this%long_name  = "Carbon-14 Dioxide Flux"
         this%short_name = "flux_14co2"
-        this%units      = "atoms/cm^2/s"
+        this%units      = "nmol/cm^2/s"
         sfo_ind%flux_14co2_id = id
       ! <<< mzheng
       case("flux_nhx")
