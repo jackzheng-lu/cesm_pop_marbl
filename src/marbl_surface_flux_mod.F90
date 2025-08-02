@@ -214,10 +214,13 @@ contains
        !-----------------------------------------------------------------------
 
        if (lflux_gas_o2) then
+          
+          ! mzheng_comments: 计算表面 O2 的 Schmidt 数和饱和度
           schmidt_o2(:) = schmidt_o2_surf(num_elements, sst)
 
           o2sat_1atm(:) = o2sat_surf(num_elements, sst, sss)
 
+         ! mzheng_comments: 计算 活塞速度
           pv_o2(:) = xkw_ice(:) * sqrt(660.0_r8 / schmidt_o2(:))
           o2sat(:) = ap_used(:) * o2sat_1atm(:)
           flux_o2_loc(:) = pv_o2(:) * (o2sat(:) - tracers_at_surface(:, o2_ind))
@@ -244,7 +247,7 @@ contains
           !-----------------------------------------------------------------------
           !  Set FLUX_CO2
           !-----------------------------------------------------------------------
-
+         ! mzheng_comments:  pH边界条件设置
           where (ph_prev_surf(:) /= c0)
              phlo(:) = ph_prev_surf(:) - del_ph
              phhi(:) = ph_prev_surf(:) + del_ph
@@ -287,6 +290,9 @@ contains
              call marbl_status_log%log_warning_trace('marbl_co2calc_surface() with flux_co2', subname)
           end if
 
+         ! mzheng_comments
+         !CO2通量计算
+         ! 正值表示从大气向海洋的通量
           flux_co2(:) = pv_co2(:) * dco2star(:)
           if (sfo_ind%flux_co2_id.ne.0) then
             surface_flux_output%sfo(sfo_ind%flux_co2_id)%forcing_field = flux_co2
