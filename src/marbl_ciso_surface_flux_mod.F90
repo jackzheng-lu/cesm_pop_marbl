@@ -217,7 +217,10 @@ contains
     surface_fluxes(:,di14c_ind) = surface_fluxes(:,di14c_ind) + flux14(:)
 
      ! >>> mzheng: 输出 14CO2 sea-to-air 通量
-     flux14_sa_out(:) = flux14_sa(:)
+     ! 注意，这里是air to sea的通量
+     ! 注意，这里应该是净flux，也就是out flux (sea to air) 减去in flux (air to sea)
+     ! flux14=flux14_as-flux14_sa
+     flux14_sa_out(:) = -flux14(:)
      ! <<< mzheng
 
     ! update carbon isotope diagnostics
