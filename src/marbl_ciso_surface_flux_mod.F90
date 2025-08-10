@@ -220,7 +220,8 @@ contains
      ! 注意，这里是air to sea的通量
      ! 注意，这里应该是净flux，也就是out flux (sea to air) 减去in flux (air to sea)
      ! flux14=flux14_as-flux14_sa
-     flux14_sa_out(:) = -flux14(:)
+     ! 因为后面有个负号，所以这里不需要加个负号
+     flux14_sa_out(:) = flux14(:)
      ! <<< mzheng
 
     ! update carbon isotope diagnostics
